@@ -1,0 +1,1 @@
+# activiti-drools-camel-template
