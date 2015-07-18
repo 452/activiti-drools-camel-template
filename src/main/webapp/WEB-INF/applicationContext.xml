@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<!-- Simple camel route which send every one minute a message on the console. -->
+	<camelContext id="context-6660a4d0-87f4-4f57-a585-9646d485b659" xmlns="http://camel.apache.org/schema/spring">
+  <route id="timer-to-console">
+    <from uri="timer:foo?period=10&amp;delay=300"/>
+    <transform id="bb">
+      <simple>Hello Web Application, how are you?\n</simple>
+    </transform>
+    <multicast id="multic">
+      <to pattern="RobustOutOnly" uri="file:/home/ihor/Desktop?fileExist=Append&amp;fileName=bembi.txt" id="file write"/>
+      <to uri="stream:out"/>
+    </multicast>
+  </route>
+</camelContext>
+
+</beans>
